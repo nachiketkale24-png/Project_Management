@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,10 @@
   "author": "Nachiket Kale",
   "license": "ISC",
   "devDependencies": {
+    "nodemon": "^3.1.11",
     "prettier": "3.7.4"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
   }
 }
