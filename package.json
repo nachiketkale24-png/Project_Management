@@ -1,0 +1,23 @@
+{
+  "name": "to_do_list",
+  "version": "1.0.0",
+  "description": "a project management application",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "backend, API"
+  },
+  "keywords": [
+    "backend",
+    "API"
+  ],
+  "author": "Nachiket Kale",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "3.7.4"
+  }
+}
