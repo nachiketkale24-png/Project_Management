@@ -137,7 +137,6 @@ Project Camp Backend is a RESTful API service designed to support collaborative 
 | Create/Delete Subtasks     | ✓     | ✓             | ✗      |
 | Create/Update/Delete Notes | ✓     | ✗             | ✗      |
 | View Notes                 | ✓     | ✓             | ✓      |
-
 #### 4.3 Data Models
 
 **User Roles:**
