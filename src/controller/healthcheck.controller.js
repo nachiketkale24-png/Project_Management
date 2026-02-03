@@ -1,4 +1,4 @@
-import {ApiResponse} from '../utils/apiResponse.js';
+import {ApiResponse} from '../utils/apiresponse.js';
 import {asynchandler} from '../utils/async-handler.js';
 /*
 const healthCheck = async async (req,res,next) => {

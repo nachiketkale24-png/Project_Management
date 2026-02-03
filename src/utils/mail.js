@@ -67,7 +67,7 @@ const forgotPasswordmailgenContent = (username, verficationUrl) => {
                 button: {
                     color: "#22BC66",
                     text: "reset password",
-                    link: passwordResetUrl,
+                    link: verficationUrl,
                 },
             },
             outro: "Need help, or have questions? Just reply to this email, we'd love to help.",
@@ -75,4 +75,4 @@ const forgotPasswordmailgenContent = (username, verficationUrl) => {
     };
 };
 
-export { emailVerificationMailgenContent, forgotPasswordmailgenContent };
+export { sendEmail, emailVerificationMailgenContent, forgotPasswordmailgenContent };

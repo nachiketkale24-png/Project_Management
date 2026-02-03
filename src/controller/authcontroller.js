@@ -3,6 +3,7 @@ import { ApiResponse } from '../utils/apiresponse.js';
 import { asynchandler } from '../utils/async-handler.js';
 import { ApiError }  from '../utils/apierror.js';
 import {sendEmail} from '../utils/mail.js';
+import {emailVerificationMailgenContent} from '../utils/mail.js';
 
 const generateAccessAndRefreshToken = async (userId)=> {
     try{
@@ -36,7 +37,7 @@ const registerUser = asynchandler(async (req, res) => {
         const {unhashedToken, hashedToken, TokenExpiry} = newUser.generateEmailVerificationToken();
 
         newUser.emailVerificationToken = hashedToken;
-        newUser.emailVerificationTokenExpiry = TokenExpiry;
+        newUser.emailVerificationExpiry = TokenExpiry;
         await newUser.save({validateBeforeSave: true});
         await sendEmail(
             {
@@ -49,12 +50,12 @@ const registerUser = asynchandler(async (req, res) => {
             }   
         );
 
-        const createdUser = await User.findByIdAndUpdate(newUser._id).select("-password -refreshToken -emailVerificationToken -emailVerificationTokenExpiry");
+        const createdUser = await User.findByIdAndUpdate(newUser._id).select("-password -refreshToken -emailVerificationToken -emailVerificationExpiry");
 
         if(!createdUser){
             throw new ApiError(500, "Error creating user"); 
         }
-        return res.status(201).json(new ApiResponse(200, {user: createdUser}, "User registered successfully"));
+        return res.status(201).json(new ApiResponse(200, "User registered successfully", {user: createdUser}));
 });
 
 export { registerUser };
