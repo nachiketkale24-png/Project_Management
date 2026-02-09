@@ -91,4 +91,37 @@ const loginuser = asynchandler(async(req,res)=>{
         .json(new ApiResponse(200,{user: LoggedInUser, accessToken, refreshToken}, "User logged in successfully "));
 })
 
-export { registerUser, loginuser };
+const logoutUser = asynchandler(async(req,res)=>{
+    // If the request has no authenticated user, still clear cookies and return success
+    if (!req.user || !req.user._id) {
+        const options = {
+            httpOnly: true,
+            secure: true
+        }
+        return res.status(200)
+        .clearCookie("accessToken", options)
+        .clearCookie("refreshToken", options)
+        .json(new ApiResponse(200, "User logged out successfully"));
+    }
+
+    await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $set: {
+                refreshToken: ""
+            },
+        },
+        {
+            new: true,
+        },
+    );
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+    return res.status(200)
+    .clearCookie("accessToken", options)
+    .clearCookie("refreshToken", options)
+    .json(new ApiResponse(200, "User logged out successfully"));
+});
+export { registerUser, loginuser, logoutUser};
