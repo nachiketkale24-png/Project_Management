@@ -275,11 +275,22 @@ const getAllRequests = asynchandler(async (req, res) => {
   if (bloodType) filter.bloodType = bloodType;
   if (urgency) filter.urgency = urgency;
 
+  // Fetch requests and sort with proper urgency ordering
+  const urgencyOrder = { critical: 4, high: 3, medium: 2, low: 1 };
   const requests = await BloodRequest.find(filter)
     .populate("requestedBy", "username email")
     .populate("approvedBy", "username email")
     .populate("fulfilledBy", "username email")
-    .sort({ urgency: -1, createdAt: -1 });
+    .sort({ createdAt: -1 });
+
+  // Sort by urgency priority if no urgency filter is specified
+  if (!urgency) {
+    requests.sort(
+      (a, b) =>
+        urgencyOrder[b.urgency] - urgencyOrder[a.urgency] ||
+        new Date(b.createdAt) - new Date(a.createdAt),
+    );
+  }
 
   return res
     .status(200)
