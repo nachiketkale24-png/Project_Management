@@ -1,5 +1,10 @@
 import { body } from "express-validator";
-import { AvailableUserRoles, AvailableBloodTypes, AvailableDonationStatus, AvailableBloodRequestStatus } from "../utils/constants.js";
+import {
+  AvailableUserRoles,
+  AvailableBloodTypes,
+  AvailableDonationStatus,
+  AvailableBloodRequestStatus,
+} from "../utils/constants.js";
 const userRegisterValidator = () => {
   return [
     body("email")
@@ -28,17 +33,9 @@ const userLoginValidator = () => {
   ];
 };
 
-export {
-  userRegisterValidator,
-  userLoginValidator
-};
-
 const bloodDonorValidator = () => {
   return [
-    body("fullName")
-      .trim()
-      .notEmpty()
-      .withMessage("Full name is required"),
+    body("fullName").trim().notEmpty().withMessage("Full name is required"),
     body("bloodType")
       .trim()
       .notEmpty()
@@ -56,7 +53,10 @@ const bloodDonorValidator = () => {
       .withMessage("Contact number is required"),
     body("address").optional(),
     body("medicalHistory").optional().trim(),
-    body("lastDonationDate").optional().isISO8601().withMessage("Invalid date format")
+    body("lastDonationDate")
+      .optional()
+      .isISO8601()
+      .withMessage("Invalid date format"),
   ];
 };
 
@@ -85,7 +85,7 @@ const bloodInventoryValidator = () => {
       .withMessage("Invalid date format"),
     body("donor").optional().isMongoId().withMessage("Invalid donor ID"),
     body("location").optional().trim(),
-    body("notes").optional().trim()
+    body("notes").optional().trim(),
   ];
 };
 
@@ -108,12 +108,9 @@ const bloodRequestValidator = () => {
       .withMessage("Units needed must be at least 1"),
     body("urgency")
       .optional()
-      .isIn(['low', 'medium', 'high', 'critical'])
+      .isIn(["low", "medium", "high", "critical"])
       .withMessage("Invalid urgency level"),
-    body("hospital")
-      .trim()
-      .notEmpty()
-      .withMessage("Hospital name is required"),
+    body("hospital").trim().notEmpty().withMessage("Hospital name is required"),
     body("contactNumber")
       .trim()
       .notEmpty()
@@ -124,7 +121,7 @@ const bloodRequestValidator = () => {
       .isISO8601()
       .withMessage("Invalid date format"),
     body("reason").optional().trim(),
-    body("notes").optional().trim()
+    body("notes").optional().trim(),
   ];
 };
 
@@ -133,5 +130,5 @@ export {
   userLoginValidator,
   bloodDonorValidator,
   bloodInventoryValidator,
-  bloodRequestValidator
+  bloodRequestValidator,
 };
